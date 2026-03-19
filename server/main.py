@@ -17,6 +17,7 @@ app = FastAPI(title="GreenTrack API", redirect_slashes=False)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+_extra_origins = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -24,6 +25,7 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "https://localhost:5173",
         "https://127.0.0.1:5173",
+        *_extra_origins,
     ],
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["Content-Type", "Authorization"],
@@ -52,11 +54,14 @@ if __name__ == "__main__":
     print(f"Health check: http://localhost:{port}/health")
     print(f"AI key configured: {'Yes' if os.getenv('GROQ_API_KEY') else 'No (fallback mode)'}")
 
+    ssl_kwargs = {}
+    if cert_file.exists() and key_file.exists():
+        ssl_kwargs = {"ssl_certfile": str(cert_file), "ssl_keyfile": str(key_file)}
+
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
         port=port,
-        ssl_certfile=str(cert_file),
-        ssl_keyfile=str(key_file),
         reload=False,
+        **ssl_kwargs,
     )
