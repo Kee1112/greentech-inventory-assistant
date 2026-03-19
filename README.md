@@ -53,13 +53,14 @@ cd server && python -m pytest tests/ -v
 Yes — Claude and Gemini
 
 **How did you verify the suggestions?**
+
 Every feature was verified by running the app in the browser and confirming the behaviour end-to-end. 
 For backend changes I checked the FastAPI `/docs` page to confirm routes were registered and ran the test suite after each change. 
 When AI-generated Groq prompts were involved, I tested with real API calls and inspected the raw responses to confirm the JSON structure matched what the frontend expected.
 
 **Give one example of a suggestion you rejected or changed:**
- Claude suggested pre-computing AI insights for all items automatically on every page load so results would be instantly available. I changed this to on-demand fetching — triggered only when a user clicks into an item or hits "Refresh AI Alerts." Pre-computing on load would fire 15+ Groq API calls per visit, exhausting the free-tier rate limit
 
+ Claude suggested pre-computing AI insights for all items automatically on every page load so results would be instantly available. I changed this to on-demand fetching — triggered only when a user clicks into an item or hits "Refresh AI Alerts." Pre-computing on load would fire 15+ Groq API calls per visit, exhausting the free-tier rate limit
 I also added slowapi rate limiting on the AI endpoints myself — this wasn't part of the initial implementation. Without it, a user could repeatedly hit the Groq endpoints and burn through the free-tier quota unintentionally. I set stricter limits on the more expensive calls (10 requests/15min for portfolio summary vs. 30/15min for per-item insights) to reflect the actual cost difference.
 
 ---
