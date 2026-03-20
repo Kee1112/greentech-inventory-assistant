@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Leaf, Plus, RefreshCw, X, CheckCircle, LogOut, Users, BarChart2 } from 'lucide-react';
 import axios from 'axios';
 import { InventoryItem, InsightResult, FilterState, PortfolioSummary } from './types';
