@@ -91,6 +91,7 @@ When AI-generated Groq prompts were involved, I tested with real API calls and i
 - SQLite does not support concurrent writes — fine for small teams, needs PostgreSQL at scale.
 - Groq free tier rate limits (30 req/15min for insights, 10 req/15min for portfolio summary) — sufficient for demo use, would need a paid plan for production traffic.
 - Daily usage rate is user-supplied, not calculated from historical data — AI projections are only as accurate as the input.
+- Have to improve user management, anyone who logs in can see other users, which will have to be fixed
 
 ---
 
