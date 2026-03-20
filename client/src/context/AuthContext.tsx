@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_API_URL ?? '/api';
+
 interface AuthContextValue {
   token: string | null;
   login: (email: string, password: string) => Promise<void>;
@@ -13,7 +15,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem('auth_token'));
 
   const login = useCallback(async (email: string, password: string) => {
-    const res = await axios.post('/api/auth/login', { email, password });
+    const res = await axios.post(`${baseURL}/auth/login`, { email, password });
     const { access_token } = res.data;
     localStorage.setItem('auth_token', access_token);
     setToken(access_token);
