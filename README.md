@@ -4,6 +4,9 @@
 **Scenario Chosen:** Green-Tech Inventory Assistant
 **Estimated Time Spent:** 6 hours
 
+## App is live at
+https://greentech-inventory-assistant.vercel.app/
+
 ---
 
 ## Quick Start
