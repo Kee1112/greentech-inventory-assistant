@@ -124,6 +124,7 @@ When AI-generated Groq prompts were involved, I tested with real API calls and i
 | Testing | pytest + FastAPI TestClient |
 
 Full design details, architecture diagram, component breakdown, and security design are in [DESIGN.md](DESIGN.md).
+Live demo and explanaion in this video https://youtu.be/rLW_J3uB_jg
 
 ---
 
