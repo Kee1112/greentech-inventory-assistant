@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Leaf, Plus, RefreshCw, X, CheckCircle, LogOut, Users, BarChart2 } from 'lucide-react';
-import axios from 'axios';
+import api from './api/client';
 import { InventoryItem, InsightResult, FilterState, PortfolioSummary } from './types';
 import {
   getInventory,
@@ -59,7 +59,7 @@ export default function App() {
 
   useEffect(() => {
     if (token) {
-      axios.get('/api/auth/me').then(res => setCurrentUserId(res.data.id)).catch(() => {});
+      api.get<{ id: number }>('/auth/me').then(res => setCurrentUserId(res.data.id)).catch(() => {});
     }
   }, [token]);
 

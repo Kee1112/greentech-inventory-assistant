@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, UserPlus, Trash2, Users, Loader2 } from 'lucide-react';
-import axios from 'axios';
+import api from '../api/client';
 
 interface User {
   id: number;
@@ -24,7 +24,7 @@ export function UsersPanel({ onClose, currentUserId }: UsersPanelProps) {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('/api/auth/users');
+      const res = await api.get('/auth/users');
       setUsers(res.data);
     } catch {
       setError('Failed to load users');
@@ -40,7 +40,7 @@ export function UsersPanel({ onClose, currentUserId }: UsersPanelProps) {
     setError('');
     setCreating(true);
     try {
-      await axios.post('/api/auth/users', { email: newEmail, password: newPassword });
+      await api.post('/auth/users', { email: newEmail, password: newPassword });
       setNewEmail('');
       setNewPassword('');
       await fetchUsers();
@@ -54,7 +54,7 @@ export function UsersPanel({ onClose, currentUserId }: UsersPanelProps) {
 
   const handleDelete = async (userId: number) => {
     try {
-      await axios.delete(`/api/auth/users/${userId}`);
+      await api.delete(`/auth/users/${userId}`);
       setDeleteConfirm(null);
       await fetchUsers();
     } catch (err: unknown) {

@@ -27,6 +27,8 @@ api.interceptors.response.use(
   }
 );
 
+export default api;
+
 export async function getInventory(filters: Partial<FilterState> = {}): Promise<InventoryItem[]> {
   const params: Record<string, string> = {};
 
