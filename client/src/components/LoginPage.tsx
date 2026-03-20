@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Leaf, LogIn, Eye, EyeOff, UserPlus } from 'lucide-react';
-import axios from 'axios';
+import api from '../api/client';
 import { useAuth } from '../context/AuthContext';
 
 export function LoginPage() {
@@ -20,7 +20,7 @@ export function LoginPage() {
       if (mode === 'login') {
         await login(email, password);
       } else {
-        const res = await axios.post('/api/auth/signup', { email, password });
+        const res = await api.post('/auth/signup', { email, password });
         const { access_token } = res.data;
         localStorage.setItem('auth_token', access_token);
         window.location.reload();
